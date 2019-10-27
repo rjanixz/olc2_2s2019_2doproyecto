@@ -1,0 +1,117 @@
+program Funciones;
+
+function factorial(n: integer): integer;
+begin
+    if (n = 0) then
+        factorial := 1;
+    else
+        factorial := n * factorial(n - 1);
+end;
+
+function fibonacci(n: integer): integer;
+begin
+    if (n = 0) then
+        fibonacci := 0
+    else if (n = 1) then
+        fibonacci := 1
+    else
+        fibonacci := fibonacci(n-1)+fibonacci(n-2);
+end;
+
+function ackermann(m,n: integer): integer;
+begin
+    if (m = 0) then
+        ackermann := n + 1
+    else if (m>0) AND (n = 0) then
+        ackermann := ackermann(m - 1, 1)
+    else
+        ackermann := ackermann(m - 1, ackermann(m,n - 1));
+end;
+
+function potencia(base,exp:integer):integer;
+begin
+    if(exp=0) then
+        potencia :=1
+    else
+        potencia := base*potencia(base,exp-1)
+end;
+
+
+function modulo(n,p:integer):integer;
+begin
+    if(n<p) then
+        modulo:= n
+    else
+        modulo:= modulo(n-p,p);
+end;
+
+
+function mcd(a,b:integer):integer;
+begin
+    if(b=0) then
+        mcd:=a
+    else
+        mcd := mcd(b,modulo(a,b));
+end;
+
+
+function hofstaderFemenina(n:integer) ;
+begin
+    if n < 0 then
+        hofstaderFemenina := 0;
+    else if n == 0 then
+        hofstaderFemenina := 1;
+    else
+        hofstaderFemenina := n - hofstaderFemenina(n - 1);
+end;
+
+function hofstaderMasculino(n:integer) ;
+begin
+    if n < 0 then
+        hofstaderMasculino := 0;
+    else if n = 0 then
+        hofstaderMasculino := 0;
+    else
+        hofstaderMasculino := n - hofstaderMasculino(n - 1);
+end;
+
+function par(int nump) : boolean;
+begin
+    if (nump = 0) then
+    begin
+        par := True;
+        exit;
+    end;
+
+    par := impar(nump - 1);
+end;
+
+function par(int numi) : boolean;
+begin
+    if (numi = 0) then
+    begin
+        par := False;
+    end;
+
+    par := par(numi - 1);
+end;
+
+procedure Hanoi(discos:integer; origen,aux,destino:string);
+begin
+    if(discos=1) then
+        writeln("Mover Disco de ",origen," a ",destino)
+    else
+        Hanoi(discos-1,origen,destino,aux);
+        writeln("Mover disco de ",origen," a ",destino);
+        Hanoi(discos-1,aux,origen,destino);
+end;
+
+
+
+var
+    n: integer;
+
+begin
+    {Mandamos a llamar todas las funciones}
+    writeln(ackermann(3,4));
+end.

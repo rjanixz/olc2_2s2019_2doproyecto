@@ -1,0 +1,150 @@
+program Llamadas;
+uses funciones;
+
+const
+    
+    maxHofstader : integer = 20;
+
+var
+    base, exp   : integer;
+    mcd1, mcd2  : integer;
+    factor      : integer;
+    fibo        : integer;
+
+    i           : integer;
+    numpi       : integer;
+
+    opcion      : integer = 0;
+
+
+procedure menu();
+begin
+
+
+    procedure opt_potencia();
+    begin
+        Writeln("1) Potencia ");
+        Write("Ingrese base: ")'
+        read(base);
+        Writeln("");
+        Write("Ingrese exponente: ");
+        read(exp);
+        Writeln("");
+        Writeln("El resultado de ", base, " ^ ", exp, " es igual a = ", potencia(base, exp));
+    end;
+
+    procedure opt_mcd();
+    begin
+        Writeln("2) MCD");
+        Write("Ingrese valor 1: ")'
+        read(mcd1);
+        Writeln("");
+        Write("Ingrese valor 2: ");
+        read(mc2);
+        Writeln("");
+        Writeln("El resultado de ", mcd1, " y ", mcd2, " es igual a = ", mcd(mcd1, mcd2));
+    end;
+
+    procedure opt_factorial();
+    begin
+        Writeln("3) Factorial");
+        Write("Ingrese valor");
+        read(factor);
+        Writeln("");
+        Writeln("El resultado de ", factorial, "! es igual a = ", factorial(factor));
+    end;
+
+    procedure opt_fibonacci();
+    begin
+        Writeln("4) Fibonacci");
+        Write("Ingrese valor");
+        read(fibo);
+        Writeln("");
+        Writeln("El valor fibonacci  resultado de ", fibo, "es = ", fibonacci(fibo));
+    end;
+
+    procedure opt_hannoi();
+    begin
+        Writeln("5) Hanoi");
+        Hanoi(3, "A", "B", "C");
+    end;
+
+    procedure opt_hofstader();
+    begin
+        Writeln("6) Hofstater Femenino y Masculino");
+        for i := 10; to maxHofstader do
+        begin
+            Writeln("Hofstater Femenino de ", i, ": ", hofstaderFemenina(i));
+            Writeln("Hofstater Masculino de ", i, ": ", hofstaderMasculino(i));
+        end;
+    end;
+
+    procedure opt_paridad();
+    begin
+        Writeln("7) Paridad Par e Impar");
+        Write("Ingrese numero a verificar");
+        read(numpi);
+        Writeln("");
+        Writeln(numpi, " es par? ", par(numpi));
+        Writeln(numpi, " es impar? ", impar(numpi));
+    end;
+
+    procedure opt_ackerman();
+    begin
+        Writeln("8) Ackermann");
+        Writeln("Ackermann 3,4 igual a = " ackermann(3,4));
+        Writeln("Ackermann 3,6 igual a = " ackermann(3,6));
+    end;
+
+    procedure opt_salir();
+    begin
+        Writeln("Fin de la ejecución");
+    end;
+
+    repeat
+        Writeln("OLC2 - Proyecto 2");
+        Writeln("Funciones disponibles: ");
+        Writeln("1. Potencia");
+        Writeln("2. MCD");
+        Writeln("3. Factorial");
+        Writeln("4. Fibonacci");
+        Writeln("5. Hanoi");
+        Writeln("6. Hofstader");
+        Writeln("7. Paridad");
+        Writeln("8. Ackermann");
+        Writeln("0. Salir");
+        Writeln("");
+
+        Write("Seleccione opción: ");
+        read(opcion);
+        Writeln("");
+        Writeln("Ha seleccionado opción ", opcion);
+
+        case (opcion) of
+            1 : opt_potencia();     (* llamo a la subfunción potencia *);
+            2 : opt_mcd();          (* llamo a la subfunción mcd *);
+            3 : opt_factorial();    (* llamo a la subfunción factorial *);
+            4 : opt_fibonacci();    (* llamo a la subfunción fibonacci *);
+            5 : opt_hannoi();       (* llamo a la subfunción hannoi *);
+            6 : opt_hofstader();    (* llamo a la subfunción hofstader *);
+            7 : opt_paridad();      (* llamo a la subfunción paridad *);
+            8 : opt_ackerman();     (* llamo a la subfunción ackerman *);
+            0 : opt_salir();        (* llamo a la subfunción salir *);
+            default: Writeln("La opción seleccionada no es válida");
+        end;
+
+
+    until opcion <> 0;
+
+end;
+
+
+begin
+
+    {
+        imprimo el menu inicial
+    }
+    menu();
+end.
+
+
