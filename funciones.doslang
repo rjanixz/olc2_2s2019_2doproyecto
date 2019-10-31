@@ -3,7 +3,7 @@ program Funciones;
 function factorial(n: integer): integer;
 begin
     if (n = 0) then
-        factorial := 1;
+        factorial := 1
     else
         factorial := n * factorial(n - 1);
 end;
@@ -55,27 +55,27 @@ begin
 end;
 
 
-function hofstaderFemenina(n:integer) ;
+function hofstaderFemenina(n:integer):integer ;
 begin
     if n < 0 then
-        hofstaderFemenina := 0;
-    else if n == 0 then
-        hofstaderFemenina := 1;
+        hofstaderFemenina := 0
+    else if n = 0 then
+        hofstaderFemenina := 1
     else
         hofstaderFemenina := n - hofstaderFemenina(n - 1);
 end;
 
-function hofstaderMasculino(n:integer) ;
+function hofstaderMasculino(n:integer):integer ;
 begin
     if n < 0 then
-        hofstaderMasculino := 0;
+        hofstaderMasculino := 0
     else if n = 0 then
-        hofstaderMasculino := 0;
+        hofstaderMasculino := 0
     else
         hofstaderMasculino := n - hofstaderMasculino(n - 1);
 end;
 
-function par(int nump) : boolean;
+function par(nump:integer) : boolean; (*Por ser de una sola pasada esto genera error xq no sabe si la funcion impar existe*)
 begin
     if (nump = 0) then
     begin
@@ -86,14 +86,14 @@ begin
     par := impar(nump - 1);
 end;
 
-function par(int numi) : boolean;
+function impar(numi:integer) : boolean;
 begin
     if (numi = 0) then
     begin
-        par := False;
+        impar := False;
     end;
 
-    par := par(numi - 1);
+    impar := par(numi - 1);
 end;
 
 procedure Hanoi(discos:integer; origen,aux,destino:string);
@@ -101,9 +101,11 @@ begin
     if(discos=1) then
         writeln("Mover Disco de ",origen," a ",destino)
     else
+        Begin
         Hanoi(discos-1,origen,destino,aux);
         writeln("Mover disco de ",origen," a ",destino);
         Hanoi(discos-1,aux,origen,destino);
+        End;
 end;
 
 
