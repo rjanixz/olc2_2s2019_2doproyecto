@@ -141,7 +141,7 @@ begin
 end;
 
 
-procedure desorden(var a: array of TItemBubbleSort);
+procedure desorden(var a: array[0..100] of TItemBubbleSort);
 var
 	i:numero;
 begin
@@ -151,7 +151,7 @@ begin
   end;
 end;
 
-procedure ordenamiento( var a: array of TItemBubbleSort );
+procedure ordenamiento( var a: array[0..100] of TItemBubbleSort );
 var
   n, newn, i:integer;
 begin
