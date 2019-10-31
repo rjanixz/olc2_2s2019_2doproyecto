@@ -75,7 +75,7 @@ begin
         hofstaderMasculino := n - hofstaderMasculino(n - 1);
 end;
 
-function par(nump:integer) : boolean; (*Por ser de una sola pasada esto genera error xq no sabe si la funcion impar existe*)
+function par(nump:integer) : boolean;
 begin
     if (nump = 0) then
     begin
@@ -91,6 +91,7 @@ begin
     if (numi = 0) then
     begin
         impar := False;
+        exit;
     end;
 
     impar := par(numi - 1);
