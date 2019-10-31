@@ -18,13 +18,10 @@ var
 
 
 procedure menu();
-begin
-
-
     procedure opt_potencia();
     begin
         Writeln("1) Potencia ");
-        Write("Ingrese base: ")'
+        Write("Ingrese base: ");
         read(base);
         Writeln("");
         Write("Ingrese exponente: ");
@@ -36,11 +33,11 @@ begin
     procedure opt_mcd();
     begin
         Writeln("2) MCD");
-        Write("Ingrese valor 1: ")'
+        Write("Ingrese valor 1: ");
         read(mcd1);
         Writeln("");
         Write("Ingrese valor 2: ");
-        read(mc2);
+        read(mcd2);
         Writeln("");
         Writeln("El resultado de ", mcd1, " y ", mcd2, " es igual a = ", mcd(mcd1, mcd2));
     end;
@@ -51,7 +48,7 @@ begin
         Write("Ingrese valor");
         read(factor);
         Writeln("");
-        Writeln("El resultado de ", factorial, "! es igual a = ", factorial(factor));
+        Writeln("El resultado de ", factor, "! es igual a = ", factorial(factor));
     end;
 
     procedure opt_fibonacci();
@@ -72,7 +69,7 @@ begin
     procedure opt_hofstader();
     begin
         Writeln("6) Hofstater Femenino y Masculino");
-        for i := 10; to maxHofstader do
+        for i := 10 to maxHofstader do
         begin
             Writeln("Hofstater Femenino de ", i, ": ", hofstaderFemenina(i));
             Writeln("Hofstater Masculino de ", i, ": ", hofstaderMasculino(i));
@@ -92,8 +89,8 @@ begin
     procedure opt_ackerman();
     begin
         Writeln("8) Ackermann");
-        Writeln("Ackermann 3,4 igual a = " ackermann(3,4));
-        Writeln("Ackermann 3,6 igual a = " ackermann(3,6));
+        Writeln("Ackermann 3,4 igual a = ",ackermann(3,4));
+        Writeln("Ackermann 3,6 igual a = ",ackermann(3,6));
     end;
 
     procedure opt_salir();
@@ -101,6 +98,7 @@ begin
         Writeln("Fin de la ejecución");
     end;
 
+begin(*se cambio ya que estaba mal posicionado*)
     repeat
         Writeln("OLC2 - Proyecto 2");
         Writeln("Funciones disponibles: ");
@@ -121,15 +119,15 @@ begin
         Writeln("Ha seleccionado opción ", opcion);
 
         case (opcion) of
-            1 : opt_potencia();     (* llamo a la subfunción potencia *);
-            2 : opt_mcd();          (* llamo a la subfunción mcd *);
-            3 : opt_factorial();    (* llamo a la subfunción factorial *);
-            4 : opt_fibonacci();    (* llamo a la subfunción fibonacci *);
-            5 : opt_hannoi();       (* llamo a la subfunción hannoi *);
-            6 : opt_hofstader();    (* llamo a la subfunción hofstader *);
-            7 : opt_paridad();      (* llamo a la subfunción paridad *);
-            8 : opt_ackerman();     (* llamo a la subfunción ackerman *);
-            0 : opt_salir();        (* llamo a la subfunción salir *);
+            1 : opt_potencia();     (* llamo a la subfunción potencia *)
+            2 : opt_mcd();          (* llamo a la subfunción mcd *)
+            3 : opt_factorial();    (* llamo a la subfunción factorial *)
+            4 : opt_fibonacci();    (* llamo a la subfunción fibonacci *)
+            5 : opt_hannoi();       (* llamo a la subfunción hannoi *)
+            6 : opt_hofstader();    (* llamo a la subfunción hofstader *)
+            7 : opt_paridad();      (* llamo a la subfunción paridad DA ERROR YA QUE LAS FUNCIONES PAR E IMPAR NO LAS AGREGA*)
+            8 : opt_ackerman();     (* llamo a la subfunción ackerman *)
+            0 : opt_salir();        (* llamo a la subfunción salir *)
             default: Writeln("La opción seleccionada no es válida");
         end;
 
@@ -146,5 +144,3 @@ begin
     }
     menu();
 end.
-
-
