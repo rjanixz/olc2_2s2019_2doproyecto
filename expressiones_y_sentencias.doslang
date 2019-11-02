@@ -23,9 +23,9 @@ const (*pagina 27 indica que la declaracion de constantes deben llevar tipo*)
 
 var
    a, b : integer;
-   positive : 1 .. 100;
-   negative : -100 .. -1;
-   chars : 'A' .. 'Z';
+   positive : 1 ... 100;
+   negative : -100 ... -1;
+   chars : 'A' ... 'Z';
    grade : char;
    arr: array[50..150] of integer;
 
