@@ -125,7 +125,7 @@ begin(*se cambio ya que estaba mal posicionado*)
             4 : opt_fibonacci();    (* llamo a la subfunción fibonacci *)
             5 : opt_hannoi();       (* llamo a la subfunción hannoi *)
             6 : opt_hofstader();    (* llamo a la subfunción hofstader *)
-            7 : opt_paridad();      (* llamo a la subfunción paridad DA ERROR YA QUE LAS FUNCIONES PAR E IMPAR NO LAS AGREGA*)
+            7 : opt_paridad();      (* llamo a la subfunción paridad*)
             8 : opt_ackerman();     (* llamo a la subfunción ackerman *)
             0 : opt_salir();        (* llamo a la subfunción salir *)
             default: Writeln("La opción seleccionada no es válida");
