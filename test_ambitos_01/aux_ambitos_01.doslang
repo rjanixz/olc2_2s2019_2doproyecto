@@ -1,0 +1,66 @@
+program aux_ambitos_01;
+type
+    int = intenger;
+const
+    ASISTENCIA_MINIMA : int = 3;
+    PUNTOS_PENALIZACION : int 5; (* puntos *)
+var
+    no_asistencias : int = 0;
+    asistio_parcial : boolean : false;
+
+
+
+function getNoAsistencias() : int;
+begin
+    getNoAsistencias := no_asistencias;
+end;
+
+procedure setAsistencias(int no_asistencias_param);
+begin
+    no_asistencias := no_asistencias_param;
+end;
+
+function isAsistioParcial() : boolean;
+begin
+    isAsistioParcial := asistio_parcial;
+end;
+
+procedure setAsistioParcial(asistio_parcial_param);
+begin
+    asistio_parcial := asistio_parcial_param
+end;
+
+
+function getASISTENCIA_MINIMA() : int
+begin
+    getASISTENCIA_MINIMA := ASISTENCIA_MINIMA;
+end;    
+
+
+procedure clear();
+begin
+    no_asistencias := 0;
+    asistio_parcial := false;
+end;
+
+
+function calcularNota(nota_obtenida: real) : real;
+var
+    penalizacion : int : 0;
+begin
+
+    if (no_asistencias < ASISTENCIA_MINIMA) then
+        (**** 5 pts menos por cada inacistencia ****)
+        penalizacion = (ASISTENCIA_MINIMA - no_asistencias) * PUNTOS_PENALIZACION
+
+    if (not asistio_parcial)
+        penalizacion = penalizacion + PUNTOS_PENALIZACION
+
+    Writeln("Calculo de penalización igual a: ", penalizacion);
+
+    calcularNota := nota_obtenida - penalizacion;
+end;
+
+begin
+    clear();
+end.
