@@ -1,3 +1,12 @@
+{
+    En este ejemplo se evalúa las sentencias:
+    - cosntantes
+    - alias en tipos
+    - lectura y escritura de valores a traves de llamdas a metodos y funciones
+
+    @autor: rainman sian
+}
+
 program aux_ambitos_01;
 type
     int = intenger;
@@ -62,5 +71,6 @@ begin
 end;
 
 begin
+    Writeln("No debería imprimir esto")
     clear();
 end.
