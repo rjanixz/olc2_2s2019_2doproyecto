@@ -6,6 +6,8 @@
     - Pasos de párametros por valor y referencia
     - Manejo correcto de ámbitos
     - Expresiones
+
+    @autor: rainman sian
 }
 
 program test_ambitos_01;
