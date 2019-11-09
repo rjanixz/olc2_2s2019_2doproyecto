@@ -52,9 +52,9 @@ begin
 	for indiceArregloLocal := 0 to 6 do
 	begin
 		if indiceArregloLocal < 5 then
-			wRite(arrayValor[indiceArregloLocal], ", ")
+			wRite(arrayValor[indiceArregloLocal], ", ");
 		else
-			wRiteLn(arrayValor[indiceArregloLocal])
+			wRiteLn(arrayValor[indiceArregloLocal]);
 	end;
 end;
 

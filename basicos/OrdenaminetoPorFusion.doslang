@@ -10,13 +10,13 @@ var
 
 
 (* paso por referencia el arreglo :) *)
-procedure merge_sort(var arrayReferencia : array[0 ... 6] of integer, inf, sup : integer);
+procedure merge_sort(var arrayReferencia : array[0 ... 6] of integer; inf, sup : integer);
 var
-	medio : ineger;
+	medio : integer;
 begin
 	if inf < sup then
 	begin
-		medio = (inf + sup) / 2 ; 		(* debe retornar un integer *)
+		medio := (inf + sup) / 2 ; 		(* debe retornar un integer *)
 
 		merge_sort(v, inf, medio);		(* ordeno la priemera mitad del arreglo *)
 		merge_sort(v, medio + 1, sup);	(* ordeno la segunda mitad del arreglo *)
@@ -31,7 +31,7 @@ var
 	vAux : array[0 ... 6] of integer;	(* array auxiliar para poder intercambiar los valores *)
 	indice1 : integer = inf;			(* este indice recoorre el arreglo del incio al medio *)
 	indice2 : integer = medio + 1;		(* este indice recoorre el arreglo del medio al final *)
-	indice0 : integer = incio;			(* este indicer recorre el nuevo arreglo ordenado *)
+	indice0 : integer = inf;			(* este indicer recorre el nuevo arreglo ordenado *)
 	i : integer = 123456789; 			(* asignado intencionalmente *)
 begin
 	while indice1 <= medio AND indice2 <= sup do (* valido que no supere los limites *)
@@ -39,7 +39,7 @@ begin
 		if arrayReferencia[indice1] < arrayReferencia[indice2] then (* si el elemento de la izquierda es menor que el de la derecha*)
 		begin
 			vAux[indice0] := arrayReferencia[indice1]; (* se agrega al nuevo arreglo en la posición que le corresponde *)
-			indice2 := indice2 + 1;
+			indice1 := indice1 + 1;
 		end
 		else
 		begin
@@ -77,9 +77,9 @@ begin
 	for indiceArregloLocal := 0 to 6 do
 	begin
 		if indiceArregloLocal < 5 then
-			wRite(arrayValor[indiceArregloLocal], ", ")
+			wRite(arrayValor[indiceArregloLocal], ", ");
 		else
-			wRiteLn(arrayValor[indiceArregloLocal])
+			wRiteLn(arrayValor[indiceArregloLocal]);
 	end;
 end;
 
