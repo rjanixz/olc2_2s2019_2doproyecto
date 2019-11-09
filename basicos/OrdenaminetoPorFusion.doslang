@@ -26,7 +26,7 @@ begin
 end;
 
 (* tambien paso por referencia el arreglo ^^) *)
-procedure fusionar( var arrayReferencia : array[0 ... 6] of ineger, inf, medio, sup : integer);
+procedure fusionar( var arrayReferencia : array[0 ... 6] of integer; inf, medio, sup : integer);
 var
 	vAux : array[0 ... 6] of integer;	(* array auxiliar para poder intercambiar los valores *)
 	indice1 : integer = inf;			(* este indice recoorre el arreglo del incio al medio *)
@@ -74,28 +74,27 @@ procedure imprimirArreglo(arrayValor : array[0 ... 6] of integer);
 var 
 	indiceArregloLocal : integer = 123456789; (* asignación intencional *)
 begin
-	wRiteLn("Valores en el arreglo: ");
 	for indiceArregloLocal := 0 to 6 do
 	begin
 		if indiceArregloLocal < 5 then
-			wRite(array[indiceArregloLocal], ", ")
+			wRite(arrayValor[indiceArregloLocal], ", ")
 		else
-			wRiteLn(array[indiceArregloLocal])
+			wRiteLn(arrayValor[indiceArregloLocal])
 	end;
 end;
 
 begin
-	v[0] = 40;
-	v[1] = 21;
-	v[2] = 1;
-	v[3] = 3;
-	v[4] = 12;
-	v[5] = 4;
+	v[0] := 40;
+	v[1] := 21;
+	v[2] := 1;
+	v[3] := 3;
+	v[4] := 12;
+	v[5] := 4;
 
-	wRiteLn("Antes del sort: ";)
+	wRiteLn("Antes del sort: ");
 	imprimirArreglo(v);
 	merge_sort(v, 0, 5);
-	wRiteLn("Despues del sort: ";
+	wRiteLn("Despues del sort: ");
 	imprimirArreglo(v);
 end.
 
