@@ -12,10 +12,10 @@ type
     int = intenger;
 const
     ASISTENCIA_MINIMA : int = 3;
-    PUNTOS_PENALIZACION : int 5; (* puntos *)
+    PUNTOS_PENALIZACION : int = 5; (* puntos Falta el =*)
 var
     no_asistencias : int = 0;
-    asistio_parcial : boolean : false;
+    asistio_parcial : boolean = false;(* la asignacion aqui es con = *)
 
 
 
@@ -24,7 +24,7 @@ begin
     getNoAsistencias := no_asistencias;
 end;
 
-procedure setAsistencias(int no_asistencias_param);
+procedure setAsistencias(no_asistencias_param : int); (* Estaba malo el paso de parametro*)
 begin
     no_asistencias := no_asistencias_param;
 end;
@@ -34,13 +34,13 @@ begin
     isAsistioParcial := asistio_parcial;
 end;
 
-procedure setAsistioParcial(asistio_parcial_param);
+procedure setAsistioParcial(asistio_parcial_param : boolean); (* Estaba malo el paso de parametro*)
 begin
-    asistio_parcial := asistio_parcial_param
+    asistio_parcial := asistio_parcial_param; (* Falta punto y coma *)
 end;
 
 
-function getASISTENCIA_MINIMA() : int
+function getASISTENCIA_MINIMA() : int; (* Falta punto y coma *)
 begin
     getASISTENCIA_MINIMA := ASISTENCIA_MINIMA;
 end;    
@@ -55,15 +55,15 @@ end;
 
 function calcularNota(nota_obtenida: real) : real;
 var
-    penalizacion : int : 0;
+    penalizacion : int = 0; (* Asignacion es con = *)
 begin
 
     if (no_asistencias < ASISTENCIA_MINIMA) then
         (**** 5 pts menos por cada inacistencia ****)
-        penalizacion = (ASISTENCIA_MINIMA - no_asistencias) * PUNTOS_PENALIZACION
+        penalizacion := (ASISTENCIA_MINIMA - no_asistencias) * PUNTOS_PENALIZACION; (* Asignacion es con := y falta punto y coma *)
 
-    if (not asistio_parcial)
-        penalizacion = penalizacion + PUNTOS_PENALIZACION
+    if (not asistio_parcial) then (* Falta then *)
+        penalizacion := penalizacion + PUNTOS_PENALIZACION; (* Asignacion es con := y falta punto y coma *)
 
     Writeln("Calculo de penalización igual a: ", penalizacion);
 
@@ -71,6 +71,6 @@ begin
 end;
 
 begin
-    Writeln("No debería imprimir esto")
+    Writeln("No debería imprimir esto"); (* Falta punto y coma *)
     clear();
 end.

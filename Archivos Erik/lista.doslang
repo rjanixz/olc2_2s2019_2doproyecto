@@ -1,0 +1,94 @@
+program lista;
+type
+	Nodo = Record
+		siguiente : Nodo;
+		index : integer;
+	end;
+var
+	raiz : Nodo;
+procedure Insert(index : integer);
+var
+	temp : Nodo;
+	nuevo : Nodo;
+begin
+	nuevo := malloc(Sizeof(Nodo));
+	nuevo.index := index;
+	if raiz = NIL then
+		raiz := nuevo
+	else
+	  begin
+		temp := raiz;
+		while temp.siguiente <> NIL do
+			temp := temp.siguiente;
+		temp.siguiente := nuevo;
+	  end;
+end;
+procedure print();
+var
+	temp : Nodo;
+begin
+	temp := raiz;
+	while temp <> NIL do
+	begin
+		writeln(temp.index);
+		temp := temp.siguiente;
+	end;
+end;
+procedure delete(index : integer);
+var
+	temp,temp2 : Nodo;
+begin
+	temp := raiz;
+	temp2 := temp;
+	if raiz.index = index then
+		begin
+			writeln("Encontrado: ",index);		
+			raiz := raiz.siguiente;
+			exit;
+		end;
+	while temp <> NIL do
+      begin	
+		if temp.index = index then
+			begin	
+				temp2.siguiente := temp.siguiente;
+				writeln("Encontrado: ", index);
+				exit;
+			end;
+		temp2 := temp;
+		temp := temp.siguiente;
+      end;
+	writeln("No encontrado: ",index);
+end;
+begin
+	writeln("-------- INSERTANDO ---------");
+	Insert(1);
+	Insert(2);
+	Insert(3);
+	Insert(4);
+	Insert(5);
+	Insert(6);
+	print();
+	writeln("--------- ELIMINANDO ---------");
+	Delete(4);
+	Delete(6);
+	Delete(1);
+	Delete(1);
+	print();
+{
+  -------- INSERTANDO ---------
+  1
+  2
+  3
+  4
+  5
+  6
+  --------- ELIMINANDO ---------
+  Encontrado: 4
+  Encontrado: 6
+  Encontrado: 1
+  No encontrado: 1
+  2
+  3
+  5
+}
+end.
