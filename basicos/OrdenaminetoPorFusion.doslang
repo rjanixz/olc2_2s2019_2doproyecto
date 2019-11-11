@@ -6,11 +6,11 @@
 }
 program OrdenamientoPorFusion;
 var
-	v       : array[0 ... 6] of integer;
-
+	v       : array[0 .. 6] of integer; (* Es con dos puntos *)
+	nnn		: array[-4..2] of integer;
 
 (* paso por referencia el arreglo :) *)
-procedure merge_sort(var arrayReferencia : array[0 ... 6] of integer; inf, sup : integer);
+procedure merge_sort(var arrayReferencia : array[0 .. 6] of integer; inf, sup : integer); (* Es con dos puntos *)
 var
 	medio : integer;
 begin
@@ -18,7 +18,7 @@ begin
 	begin
 		medio := (inf + sup) / 2 ; 		(* debe retornar un integer *)
 
-		merge_sort(v, inf, medio);		(* ordeno la priemera mitad del arreglo *)
+		merge_sort(v, inf, medio);		(* ordeno la primera mitad del arreglo *)
 		merge_sort(v, medio + 1, sup);	(* ordeno la segunda mitad del arreglo *)
 
 		fusionar(v, inf, medio, sup);	(* uno las partes ordenadas*)
@@ -26,9 +26,10 @@ begin
 end;
 
 (* tambien paso por referencia el arreglo ^^) *)
-procedure fusionar( var arrayReferencia : array[0 ... 6] of integer; inf, medio, sup : integer);
+procedure fusionar( var arrayReferencia : array[0 .. 6] of integer; inf, medio, sup : integer); (* Es con dos puntos *)
 var
-	vAux : array[0 ... 6] of integer;	(* array auxiliar para poder intercambiar los valores *)
+	(* Es con dos puntos *)
+	vAux : array[0 .. 6] of integer;	(* array auxiliar para poder intercambiar los valores *)
 	indice1 : integer = inf;			(* este indice recoorre el arreglo del incio al medio *)
 	indice2 : integer = medio + 1;		(* este indice recoorre el arreglo del medio al final *)
 	indice0 : integer = inf;			(* este indicer recorre el nuevo arreglo ordenado *)
@@ -50,31 +51,31 @@ begin
 		indice0 := indice0 + 1; (* actualizo la nueva posición para el arrglo ordenado *)
 	end;
 
-	for i := indice1 to medio + 1 do	(* medio + 1 es quivalente a <= *)
+	for i := indice1 to medio do	(* medio + 1 es quivalente a <= *)
 	begin
 		vAux[indice0] := arrayReferencia[i];		(* copiamos los valores del arreglo orginal en el auxiliar *)
 		indice0 := indice0 + 1;
 	end;
 
 	(* la variable i es reasignada acá *)
-	for i := indice2 to sup + 1 do	(* sup + 1 es quivalente a <= *)
+	for i := indice2 to sup do	(* sup + 1 es quivalente a <= *)
 	begin
 		vAux[indice0] := arrayReferencia[i];		(* copiamos los valores del arreglo orginal en el auxiliar *)
 		indice0 := indice0 + 1;
 	end;
 
 	(* este for solo tiene una sentencia, no necesita begin/end *)
-	for i := inf to sup + 1 do	(* sup + 1 es quivalente a <= *)
+	for i := inf to sup do	(* sup + 1 es quivalente a <= *)
 		arrayReferencia[i] := vAux[i];			(* asignamos los valores ordenados al arrelgo original *)
 end;
 
 
 (* paso por valor el arreglo :O *)
-procedure imprimirArreglo(arrayValor : array[0 ... 6] of integer);
+procedure imprimirArreglo(arrayValor : array[0 .. 6] of integer); (* Es con dos puntos *)
 var 
 	indiceArregloLocal : integer = 123456789; (* asignación intencional *)
 begin
-	for indiceArregloLocal := 0 to 6 do
+	for indiceArregloLocal := 0 to 5 do (* Rango de 0 - 5 *)
 	begin
 		if indiceArregloLocal < 5 then
 			wRite(arrayValor[indiceArregloLocal], ", ");
@@ -97,4 +98,3 @@ begin
 	wRiteLn("Despues del sort: ");
 	imprimirArreglo(v);
 end.
-
