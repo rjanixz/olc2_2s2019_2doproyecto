@@ -6,11 +6,11 @@
 }
 program OrdenamientoRapido;
 var
-	v       : array[0 ... 6] of integer;
+	v : array[0 .. 6] of integer;
 
 
 (* paso el arreglo por referencia *)
-procedure quick_sort(var A : array[0 ... 6] of integer; izq, der : integer);
+procedure quick_sort(var A : array[0 .. 6] of integer; izq, der : integer);
 var
 	pivote	: integer = a[izq];		(* doslang es case insensitive *)
 	i		: integer = izq;		(* i realiza la búsqueda de izquierda a derecha *)
@@ -40,16 +40,16 @@ begin
 
 	(* IFs sin begin/end *)
 	if izq < d-1 then quick_sort(A, izq, d-1);
-	if d+1 < d then quick_sort(A, d+1, der);
+	if d+1 < der then quick_sort(A, d+1, der);
 end;
 
 
 (* paso por valor el arreglo :O *)
-procedure imprimirArreglo(arrayValor : array[0 ... 6] of integer);
+procedure imprimirArreglo(arrayValor : array[0 .. 6] of integer);
 var 
 	indiceArregloLocal : integer = 123456789; (* asignación intencional *)
 begin
-	for indiceArregloLocal := 0 to 6 do
+	for indiceArregloLocal := 0 to 5 do
 	begin
 		if indiceArregloLocal < 5 then
 			wRite(arrayValor[indiceArregloLocal], ", ");

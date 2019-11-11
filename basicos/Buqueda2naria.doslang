@@ -7,10 +7,10 @@
 }
 program busqueda2naria;
 var
-	v       : array[0 ... 6] of integer;
+	v       : array[0 .. 6] of integer;
 
 
-function busqueda_binaria(var v: array[0 ... 6] of integer; ini, fin, valor : integer) : integer;
+function busqueda_binaria(var v: array[0 .. 6] of integer; ini, fin, valor : integer) : integer;
 var
     medio : integer = (ini+fin)/2; (* declaramos la posición mitad del array *)
 begin
