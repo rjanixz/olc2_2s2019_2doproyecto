@@ -146,7 +146,7 @@ var
 begin
   for i:= 50 to 149 do
   begin
-	  a[149 - i + 50] := i;(*debido al cambio que se hizo en el rango del arreglo en linea 31*)
+	  a[149 - i + 50] := i;
   end;
 end;
 
