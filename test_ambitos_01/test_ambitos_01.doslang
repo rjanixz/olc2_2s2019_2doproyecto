@@ -31,7 +31,6 @@ procedure imprimirEstudiantes(var listadoDeEstudiantes : array [0 .. NO_ESTUDIAN
 var
     i : int = 333;
     estudianteTemp : Estudiante;
-	est : Estudiante;
     { Las siguientes variables me sirven para verificar que lean del registro}
     asistio_parcial : boolean = true; 
     no_asistencias : int = -10;
