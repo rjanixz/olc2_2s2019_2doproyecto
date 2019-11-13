@@ -1,5 +1,6 @@
 program Funciones;
-
+var
+    n: integer; (* Declaracion de variables va antes de funciones *)
 function factorial(n: integer): integer;
 begin
     if (n = 0) then
@@ -108,11 +109,6 @@ begin
         Hanoi(discos-1,aux,origen,destino);
         End;
 end;
-
-
-
-var
-    n: integer;
 
 begin
     {Mandamos a llamar todas las funciones}
