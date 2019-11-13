@@ -1,0 +1,104 @@
+program arbolBinario;
+type
+	Nodo = Record
+		izq : Nodo;
+		der : Nodo;
+		index : integer;
+		name : String;
+	end;
+var
+	raiz : Nodo;
+(* Sobrecarga de funciones y procecimientos *)
+function Insert(var raiz : Nodo; index : integer; name : String) : Nodo;
+begin
+	if raiz = NIL then
+	begin
+		raiz := malloc(sizeof(Nodo));
+		raiz.index := index;
+		raiz.name := name;
+	end;
+	else if index < raiz.index then
+		raiz.izq := Insert(raiz.izq,index,name);
+	else
+		raiz.der := Insert(raiz.der,index,name);
+	Insert := raiz;
+end;
+procedure Insert(index : Integer; name : String);
+begin
+	if raiz = NIL then
+	begin
+		raiz := malloc(Sizeof(Nodo));
+		raiz.index := index;
+		raiz.name := name;
+	end;
+	else
+		Insert(raiz,index,name);
+end;
+procedure PreOrden(var raiz :Nodo);
+begin
+	if raiz <> NIL then
+	begin
+		writeln(raiz.index,"-",raiz.name);
+		PreOrden(raiz.izq);
+		PreOrden(raiz.der);
+	end;
+end;
+procedure PostOrden(var raiz :Nodo);
+begin
+	if raiz <> NIL then
+	begin
+		PostOrden(raiz.izq);
+		PostOrden(raiz.der);
+		writeln(raiz.index,"-",raiz.name);
+	end;
+end;
+procedure Inorden(var raiz :Nodo);
+begin
+	if raiz <> NIL then
+	begin
+		Inorden(raiz.izq);
+		writeln(raiz.index,"-",raiz.name);
+		Inorden(raiz.der);
+	end;
+end;
+procedure cambio(var raiz : Nodo; index : integer; newname : String);
+begin
+	if raiz = NIL then
+	begin
+		writeln("No encontrado: ",index);
+		exit;
+	end;
+
+	if raiz.index = index then
+	begin
+		writeln("Encontrado: ",index);
+		raiz.name := newname;
+		exit;
+	end;
+	else if index < raiz.index then
+	begin
+		cambio(raiz.izq,index,newname);
+		exit;
+	end;
+	cambio(raiz.der,index,newname);
+end;
+begin
+	writeln("-------- INSERTANDO ---------");
+	Insert(10,"id1");
+	Insert(5,"id2");
+	Insert(12,"id3");
+	Insert(9,"id4");
+	Insert(3,"id5");
+	Insert(14,"id6");
+	writeln("--------- PREORDEN ----------");
+	Preorden(raiz); (* RESULTADO : 10, 5, 3, 9, 12, 14 *)
+	writeln("--------- POSTORDEN ----------");
+	PostOrden(raiz); (* RESULTADO : 3, 9, 5, 14, 12, 10*)
+	writeln("--------- INORDEN ----------");
+	Inorden(raiz); (* RESULTADO : 3, 5, 9, 10, 12, 14*)
+	
+	writeln("--------- CAMBIANDO --------");
+	cambio(raiz,3,"idnuevo"); (* RESULTADO: Econtrado 3 *)
+	cambio(raiz,4,"no encontrado"); (*RESULTADO: No encontrado 4*)
+	Inorden(raiz); 
+end.

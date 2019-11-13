@@ -167,7 +167,7 @@ begin
 		  end;
 	  end ;
 	n := newn;
-  until n = 0;(*se realizaba solo una iteracion*)
+  until n <> 0;(*se realizaba solo una iteracion*)
 end;
 
 
