@@ -1,14 +1,14 @@
 program ArbolAvl;
 
 type
-	NodoAvl : Record
+	NodoAvl = Record
 		valor : integer;
 		izquierdo : NodoAvl;
 		derecho : NodoAvl;
 		altura : integer;
 		id : integer;
 	end;
-	Avl : Record
+	Avl = Record
 		raiz : NodoAvl;
 	end;
 
