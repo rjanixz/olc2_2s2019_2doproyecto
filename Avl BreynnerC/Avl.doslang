@@ -219,22 +219,20 @@ End;
 Function getDotNodosInternos(var raiz : NodoAvl) : String;
 var
 	izquierdo,derecho:NodoAvl;
-	etiqueta:String;
 Begin
 	izquierdo := raiz.izquierdo;
 	derecho := raiz.derecho;
 	if(izquierdo = NIL and derecho = NIL) then
-		etiqueta := "nodo" + raiz.id + " [ label =\"" + raiz.valor + "\"];\n";
+		getDotNodosInternos := "nodo" + raiz.id + " [ label =\"" + raiz.valor + "\"];\n";
 	else
-		etiqueta := "nodo" + raiz.id + " [ label =\"<C0>|" + raiz.valor + "|<C1>\"];\n";
+		getDotNodosInternos := "nodo" + raiz.id + " [ label =\"<C0>|" + raiz.valor + "|<C1>\"];\n";
 
 	if izquierdo <> NIL then
-		etiqueta := etiqueta+getDotNodosInternos(izquierdo)+ "nodo" + raiz.id + ":C0->nodo" + izquierdo.id + "\n";
+		getDotNodosInternos := getDotNodosInternos+getDotNodosInternos(izquierdo)+ "nodo" + raiz.id + ":C0->nodo" + izquierdo.id + "\n";
 	
 	if derecho <> NIL then
-		etiqueta := etiqueta+getDotNodosInternos(derecho)+ "nodo" + raiz.id + ":C1->nodo" + derecho.id + "\n";
+		getDotNodosInternos := getDotNodosInternos+getDotNodosInternos(derecho)+ "nodo" + raiz.id + ":C1->nodo" + derecho.id + "\n";
 
-	getDotNodosInternos := etiqueta;
 End;
 
 begin
