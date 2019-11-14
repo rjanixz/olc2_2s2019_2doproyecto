@@ -144,9 +144,9 @@ procedure desorden(var a: array[50..150] of TItemBubbleSort);
 var
 	i:numero;
 begin
-  for i:= 0 to 100 do
+  for i:= 50 to 149 do
   begin
-	  a[100-i] := i;(*debido al cambio que se hizo en el rango del arreglo en linea 31*)
+	  a[149 - i + 50] := i;
   end;
 end;
 
@@ -155,10 +155,10 @@ var
   n, newn, i:integer;
 begin
   desorden(a);
-  n := 150;(*funcion HIGH no existe en el lenguaje*)
+  n := 149;(*funcion HIGH no existe en el lenguaje*)
   repeat
 	newn := 0;
-	for i := 51 to n   do
+	for i := 51 to n do
 	  begin
 		if a[ i - 1 ] > a[ i ] then
 		  begin
@@ -183,7 +183,7 @@ begin
    ordenamiento(arr);
    writeln(arr[120]);
    
-   for a:=0 to 100 do
+   for a:=50 to 149 do
 	writeln(arr[a]);
    
 end.
