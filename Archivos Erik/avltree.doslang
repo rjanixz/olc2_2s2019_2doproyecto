@@ -159,6 +159,39 @@ begin
 		write(nodo.key," ");
 	end;
 end;
+
+procedure getDot(var raiz : Node);
+Begin
+	write("digraph grafica{\n");
+	write("rankdir=TB;\n");
+	write("node [shape = record, style=filled, fillcolor=seashell2];\n");
+	getDotNodosInternos(raiz);
+	write("}\n");
+End;
+
+procedure getDotNodosInternos(var raiz : Node);
+var
+	izquierdo,derecho:Node;
+Begin
+	izquierdo := raiz.left;
+	derecho := raiz.right;
+	if(izquierdo = NIL and derecho = NIL) then
+		write("nodo",raiz.key," [ label =\"",raiz.key,"\"];\n");
+	else
+		write("nodo",raiz.key," [ label =\"<C0>|",raiz.key,"|<C1>\"];\n");
+
+	if izquierdo <> NIL then
+	begin
+		getDotNodosInternos(izquierdo);
+		write("nodo",raiz.key,":C0->nodo",izquierdo.key,"\n");
+	end;
+	if derecho <> NIL then
+	begin
+		getDotNodosInternos(derecho);
+		write("nodo",raiz.key,":C1->nodo",derecho.key,"\n");
+	end;
+End;
+
 begin
 	root := insert(root,10);
 	root := insert(root,20);
@@ -173,6 +206,7 @@ begin
 	inorden(root);
 	write("\nPostOrden: ");
 	postorden(root);
+	getDot(root);
 	{SALIDA: 
     	Dato repetido : 25
 		PreOrden:30 20 10 25 40 50 
