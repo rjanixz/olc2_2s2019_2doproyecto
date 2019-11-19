@@ -41,7 +41,7 @@ begin
 		begin
 			vAux[indice0] := arrayReferencia[indice1]; (* se agrega al nuevo arreglo en la posición que le corresponde *)
 			indice1 := indice1 + 1;
-		end
+		end;
 		else
 		begin
 			vAux[indice0] := arrayReferencia[indice2]; (* se agrega al nuevo arreglo en la posición que le corresponde *)

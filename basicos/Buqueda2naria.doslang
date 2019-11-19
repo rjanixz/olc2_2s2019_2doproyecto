@@ -24,13 +24,13 @@ begin
     begin
         busqueda_binaria := medio;   (* encontramos el valor, devuelve la posición *)
         exit;
-    end
+    end;
     (* casos recursivos *)
     else if valor < v[medio] then
     begin
         busqueda_binaria := busqueda_binaria(v, ini, medio - 1, valor); (* recorremos del inicio a la mitad *)
         exit;
-    end
+    end;
     else
     begin
         busqueda_binaria := busqueda_binaria(v, medio + 1, fin, valor); (* recorremos de la mitada + 1al final *)
