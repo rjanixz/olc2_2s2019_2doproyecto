@@ -1,0 +1,458 @@
+{
+	Matriz ortogonal? 
+	Recorrido por filas y columnas, 
+	y ademas genera el grafo para ver el resultado en graphviz
+}
+program matriz;
+	type
+		int=integer;
+		Nodo=record
+				fila:int;
+				columna:int;
+				valor:string;
+				abajo:Nodo;
+				arriba:Nodo;
+				derecha:Nodo;
+				izquierda:Nodo;
+			end;
+		Encabezado=record
+					id:int;
+					siguiente:Encabezado;
+					anterior:Encabezado;
+					acceso:Nodo;
+				end;
+
+		ListaEncabezados=record
+							primero:Encabezado;
+						end;	
+
+		Matriz = record
+					eFilas:ListaEncabezados;
+					eColumnas:ListaEncabezados;
+				end;
+
+	var
+		m:Matriz;
+		listaFilas,listaColumnas:ListaEncabezados;
+
+procedure insertar(nuevo:Encabezado; lista:ListaEncabezados);
+var
+	actual:Encabezado;
+begin
+	if(lista.primero = nil) then
+		lista.primero := nuevo;
+	else
+		if(nuevo.id < lista.primero.id) then (*INSERCION AL INICIO*)
+		begin
+			nuevo.siguiente := lista.primero;
+			lista.primero.anterior := nuevo;
+			lista.primero := nuevo;
+		end;
+		else 
+		begin
+			actual := lista.primero; 
+			while(actual.siguiente <> nil) do
+			begin
+				if(nuevo.id < actual.siguiente.id) then
+				begin
+					nuevo.siguiente := actual.siguiente;
+					actual.siguiente.anterior := nuevo;
+					nuevo.anterior := actual;
+					actual.siguiente := nuevo;
+					break;
+				end;
+			actual := actual.siguiente;
+			end;
+
+			if(actual.siguiente = nil) then
+			begin
+				actual.siguiente := nuevo;
+				nuevo.anterior := actual;
+			end;
+		end;
+end; 
+
+function getEncabezado(id:int; lista:ListaEncabezados):Encabezado;
+var
+	actual:Encabezado;
+begin
+	actual:=lista.primero;
+	while(actual <> nil) do
+	begin
+		if(actual.id = id) then
+		begin
+			getEncabezado := actual;
+			exit;
+		end;
+		actual := actual.siguiente;
+	end;
+	getEncabezado := nil;
+end;
+
+procedure insertar(fila, columna : int; valor:string; mat:Matriz);
+
+var
+	nuevo : Nodo;
+	eFila : Encabezado;
+	eColumna : Encabezado;
+	actual : Nodo;
+begin
+	nuevo := malloc(sizeof(Nodo));
+	nuevo.fila := fila;
+	nuevo.columna := columna;
+	nuevo.valor := valor;
+
+	eFila := getEncabezado(fila, mat.eFilas);
+
+    if(eFila = NIL) then
+		begin
+			eFila := malloc(sizeof(Encabezado));
+			eFila.id := fila;
+
+			insertar(eFila, mat.eFilas);
+			eFila.acceso := nuevo;
+		end
+    else
+		begin
+			if(nuevo.columna < eFila.acceso.columna) then
+				begin
+					nuevo.derecha := eFila.acceso;
+					eFila.acceso.izquierda := nuevo;
+					eFila.acceso := nuevo;
+				end
+			else
+				begin
+					actual := eFila.acceso;
+					while(actual.derecha <> NIL) do
+						begin
+							if(nuevo.columna < actual.derecha.columna) then
+								begin
+									nuevo.derecha := actual.derecha;
+									actual.derecha.izquierda := nuevo;
+									nuevo.izquierda := actual;
+									actual.derecha := nuevo;
+									break;
+								end;
+							actual := actual.derecha;
+						end;
+
+					if(actual.derecha = NIL) then
+						begin
+							actual.derecha := nuevo;
+							nuevo.izquierda := actual;
+						end;
+				end;
+		end;
+
+    eColumna := getEncabezado(columna, mat.eColumnas);
+    if(eColumna = nil) then
+		begin
+			eColumna := malloc(sizeof(Encabezado));
+			eColumna.id := columna;
+			insertar(eColumna,mat.eColumnas);
+			eColumna.acceso := nuevo;
+		end
+    else
+		begin 
+			if(nuevo.fila < eColumna.acceso.fila) then
+				begin
+					nuevo.abajo := eColumna.acceso;
+					eColumna.acceso.arriba := nuevo;
+					eColumna.acceso := nuevo;
+				end
+			else
+				begin
+					actual := eColumna.acceso;
+					while(actual.abajo <> NIL) do
+					begin
+						if(nuevo.fila < actual.abajo.fila) then
+							begin
+								nuevo.abajo := actual.abajo;
+								actual.abajo.arriba := nuevo;
+								nuevo.arriba := actual;
+								actual.abajo := nuevo;
+								break;
+							end;
+						actual := actual.abajo;
+					end;
+
+					if(actual.abajo = nil) then
+						begin
+							actual.abajo := nuevo;
+							nuevo.arriba := actual;
+						end;
+				end;
+		end;
+end;
+
+procedure recorrerFilas(mat:Matriz);
+var
+	eFila:Encabezado;
+	actual:Nodo;
+begin
+	eFila := mat.eFilas.primero;
+	write("Recorrido por filas: ");
+
+	while(eFila <> nil) do
+	begin
+		actual := eFila.acceso;
+		while(actual <> nil) do
+		begin
+			write(actual.valor);
+			if(eFila.siguiente <> nil or actual.derecha <> nil) then
+			begin
+				write(", \n");
+			end;
+			actual := actual.derecha;
+		end;
+		eFila := eFila.siguiente;
+	end;
+	writeln("");
+end;
+
+procedure recorrerColumnas(mat:Matriz);
+var
+	eColumna:Encabezado;
+	actual:Nodo;
+begin
+	eColumna := mat.eColumnas.primero;
+	write("Recorrido por columnas: ");
+
+	while(eColumna <> nil) do
+	begin
+		actual := eColumna.acceso;
+		while(actual <> nil) do
+		begin
+			write(actual.valor);
+			if(eColumna.siguiente <> nil or actual.abajo <> nil) then
+			begin
+				write(", \n");
+			end;
+			actual := actual.abajo;
+		end;
+		eColumna := eColumna.siguiente;
+	end;
+	writeln("");
+end;
+
+procedure grafo(m:Matriz);
+var
+	actual:Encabezado;
+	nodoActual:Nodo;
+	eFila:Encabezado;
+	eColumna:Encabezado;
+begin
+	write("digraph G{\nnode[shape=box, style=filled, color=Gray95];\nedge[color=black];\nrankdir=UD;");
+	write("{rank = min;\"Matriz\";");
+    actual := m.eColumnas.primero;
+
+    while(actual <> nil) do
+	begin
+		write("\"x",actual.id,"\";");
+		actual := actual.siguiente;
+	end;
+	writeln("};");
+
+    eFila := m.eFilas.primero;
+    while(eFila <> NIL) do
+		begin
+			write("{rank = same; ");
+			nodoActual := eFila.acceso;
+			write("\"y",eFila.id,"\";");
+			while(nodoActual <> nil) do
+				begin
+					write("\"",nodoActual.fila,",",nodoActual.columna,'\\',"n",nodoActual.valor,"\";");
+					nodoActual := nodoActual.derecha;
+				end;
+			writeln("};");
+			eFila := eFila.siguiente;
+		end;
+
+    eFila := m.eFilas.primero;
+
+    while(eFila <> nil) do
+    begin
+        nodoActual := eFila.acceso;
+        while(nodoActual <> nil) do
+        begin
+            if(nodoActual.derecha <> nil) then
+            begin
+				write("\"",nodoActual.fila,",",nodoActual.columna,'\\',"n", nodoActual.valor, "\"");
+				write("->");
+				write("\"",nodoActual.derecha.fila, ",", nodoActual.derecha.columna);
+				write('\\',"n", nodoActual.derecha.valor, "\"", "[constraint=false];\n");
+				write("\"",nodoActual.derecha.fila, ",",nodoActual.derecha.columna);
+				write('\\',"n", nodoActual.derecha.valor,"\"");
+				write("->");
+				write("\"", nodoActual.fila, ",", nodoActual.columna);
+				write('\\',"n", nodoActual.valor, "\"", "[constraint=false];\n");
+            end;
+            nodoActual := nodoActual.derecha;
+		 end;
+         eFila := eFila.siguiente;
+    end;
+    
+	eColumna := m.eColumnas.primero;
+
+    while(eColumna <> nil) do
+    begin
+        if(eColumna.acceso<>nil) then
+		begin
+			write("\"x", eColumna.id, "\"");
+			write("->");
+			write("\"", eColumna.acceso.fila, ",",eColumna.acceso.columna);
+			write('\\',"n", eColumna.acceso.valor, "", "\";\n");
+        end;
+		eColumna := eColumna.siguiente;
+    end;
+
+
+    eColumna := m.eColumnas.primero;
+    while(eColumna <> nil) do
+    begin
+        nodoActual := eColumna.acceso;
+        while(nodoActual <> nil) do
+        begin
+            if(nodoActual.abajo<>nil) then
+            begin
+				write("\"", nodoActual.fila,",",nodoActual.columna);
+				write('\\',"n", nodoActual.valor, "", "\"");
+				write("->");
+				write("\"", nodoActual.abajo.fila,",",nodoActual.abajo.columna);
+
+				
+				write('\\',"n", nodoActual.abajo.valor, "", "\";\n");
+
+				write("\"", nodoActual.abajo.fila,",",nodoActual.abajo.columna);
+				write('\\',"n", nodoActual.abajo.valor, "", "\"");
+				write("->");
+
+				write("\"", nodoActual.fila,",",nodoActual.columna);
+				write('\\',"n", nodoActual.valor, "", "\";\n");
+            end;
+            nodoActual := nodoActual.abajo;
+        end;
+        eColumna := eColumna.siguiente;
+    end;
+
+    eFila := m.eFilas.primero;
+
+    while(eFila <> nil) do
+    begin
+        if(eFila.acceso<>nil) then
+		begin
+			write("\"y",eFila.id,"\"");
+			write("->");
+			write("\"",eFila.acceso.fila, ",", eFila.acceso.columna);
+			write('\\',"n", eFila.acceso.valor, "\";\n");
+        end;
+        eFila := eFila.siguiente;
+    end;
+
+    actual := m.eFilas.primero;
+    while(actual <> nil) do
+    begin
+     	if(actual.siguiente<>nil) then
+		begin
+			write("\"y",actual.id,"\"");
+			write("->");
+			write("\"y",actual.siguiente.id,"\"[rankdir=UD];\n");
+        end;
+        actual := actual.siguiente;
+    end;
+
+    actual := m.eColumnas.primero;
+    while(actual <> nil) do
+    begin
+    	if(actual.siguiente<>nil) then
+		begin
+			write("\"x",actual.id,"\"");
+			write("->");
+			write("\"x",actual.siguiente.id,"\";\n");
+		end;
+        actual := actual.siguiente;
+    end;
+	write("Matriz ->x",m.eColumnas.primero.id,";\n");
+	write("Matriz ->y",m.eFilas.primero.id,"[rankdir=UD];\n");
+	write("}");
+end;
+
+
+begin
+	m := malloc(sizeof(Matriz));
+	listaFilas:=malloc(sizeof(ListaEncabezados));
+	listaColumnas:=malloc(sizeof(ListaEncabezados));
+	m.eFilas := listaFilas;
+	m.eColumnas := listaColumnas;
+	insertar(0, 0, "pavel",m);
+    insertar(0, 2, "a",m);
+    insertar(0, 4, "b",m);
+    insertar(0, 6, "danis",m);
+
+    insertar(1, 1, "c",m);
+    insertar(1, 3, "d",m);
+    insertar(1, 5, "z",m);
+    insertar(1, 7, "e",m);
+
+    insertar(2, 0, "coka",m);
+    insertar(2, 2, "f",m);
+    insertar(2, 4, "gaby",m);
+    insertar(2, 6, "g",m);
+
+    insertar(3, 1, "erik",m);
+    insertar(3, 3, "jeff",m);
+    insertar(3, 5, "chino",m);
+    insertar(3, 7, "sergio",m);
+
+	insertar(4, 0, "h",m);
+    insertar(4, 2, "i",m);
+    insertar(4, 4, "j",m);
+    insertar(4, 6, "k",m);
+    recorrerFilas(m);
+    recorrerColumnas(m);
+	grafo(m);
+end.
+
+{
+Recorrido por filas: pavel, 
+a, 
+b, 
+danis, 
+c, 
+d, 
+d, 
+e, 
+coka, 
+f, 
+gaby, 
+g, 
+erik, 
+jeff, 
+chino, 
+sergio, 
+h, 
+i, 
+j, 
+k
+
+Recorrido por columnas: pavel, 
+coka, 
+h, 
+c, 
+erik, 
+a, 
+f, 
+i, 
+d, 
+jeff, 
+b, 
+gaby, 
+j, 
+d, 
+chino, 
+danis, 
+g, 
+k, 
+e, 
+sergio
+}
