@@ -35,7 +35,7 @@ program matriz;
 		m:Matriz;
 		listaFilas,listaColumnas:ListaEncabezados;
 
-procedure insertar(nuevo:Encabezado; lista:ListaEncabezados);
+procedure insertar(var nuevo:Encabezado; var lista:ListaEncabezados);
 var
 	actual:Encabezado;
 begin
@@ -72,7 +72,7 @@ begin
 		end;
 end; 
 
-function getEncabezado(id:int; lista:ListaEncabezados):Encabezado;
+function getEncabezado(id:int; var lista:ListaEncabezados):Encabezado;
 var
 	actual:Encabezado;
 begin
@@ -89,7 +89,7 @@ begin
 	getEncabezado := nil;
 end;
 
-procedure insertar(fila, columna : int; valor:string; mat:Matriz);
+procedure insertar(fila, columna : int; valor:string; var mat:Matriz);
 
 var
 	nuevo : Nodo;
@@ -185,7 +185,7 @@ begin
 		end;
 end;
 
-procedure recorrerFilas(mat:Matriz);
+procedure recorrerFilas(var mat:Matriz);
 var
 	eFila:Encabezado;
 	actual:Nodo;
@@ -210,7 +210,7 @@ begin
 	writeln("");
 end;
 
-procedure recorrerColumnas(mat:Matriz);
+procedure recorrerColumnas(var mat:Matriz);
 var
 	eColumna:Encabezado;
 	actual:Nodo;
@@ -235,7 +235,7 @@ begin
 	writeln("");
 end;
 
-procedure grafo(m:Matriz);
+procedure grafo(var m:Matriz);
 var
 	actual:Encabezado;
 	nodoActual:Nodo;
